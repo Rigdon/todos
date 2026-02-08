@@ -1,3 +1,5 @@
+# Dependency Review
+
 ## ADDED Requirements
 
 ### Requirement: Dependency Vulnerability Scanning
@@ -11,4 +13,4 @@ The system SHALL scan dependencies for known vulnerabilities on every Pull Reque
 #### Scenario: vulnerability found
 - **WHEN** a PR introduces a dependency with a known vulnerability
 - **THEN** the check MUST fail
-- **AND** the PR merge SHOULD be blocked
+- **AND** the PR merge MUST be blocked
