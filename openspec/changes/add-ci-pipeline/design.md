@@ -4,7 +4,7 @@ Currently, tests must be run manually before pushing. There is no automated veri
 ## Goals / Non-Goals
 **Goals:**
 - Automate `go test` and `go build` on every PR and push to main.
-- prevent merging broken code.
+- Prevent merging broken code.
 - Detect vulnerable dependencies in PRs.
 
 **Non-Goals:**
