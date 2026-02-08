@@ -1,0 +1,7 @@
+# Implementation Tasks
+
+## 1. CI Workflows
+
+- [x] 1.1 Create `.github/workflows/ci.yaml` for testing and building
+- [x] 1.2 Create `.github/workflows/dependency-review.yaml` for security scanning
+- [x] 1.3 Verify workflows by pushing to a branch and checking Actions tab
