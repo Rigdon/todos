@@ -2,8 +2,8 @@
 To ensure code quality and security, we need automated checks for every pull request. Currently, testing is manual.
 
 # What Changes
-- Add GitHub Actions workflow for Unit Testing & Building (`.github/workflows/ci.yaml`)
-- Add GitHub Actions workflow for Dependency Review (`.github/workflows/dependency-review.yaml`)
+- Add GitHub Actions workflow for Unit Testing & Building (`.github/workflows/ci.yaml`) - *Rolled out in PR 1*
+- Add GitHub Actions workflow for Dependency Review (`.github/workflows/dependency-review.yaml`) - *Rolled out in PR 2*
 
 # Capabilities
 
@@ -15,5 +15,5 @@ To ensure code quality and security, we need automated checks for every pull req
 None.
 
 # Impact
-- All future PRs will be blocked if checks fail.
+- Enables blocking PR merges when checks fail, once these workflows are configured as required status checks on protected branches.
 - Requires `GITHUB_TOKEN` permissions for dependency review.

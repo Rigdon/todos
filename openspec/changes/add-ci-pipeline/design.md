@@ -4,10 +4,10 @@ Currently, tests must be run manually before pushing. There is no automated veri
 ## Goals / Non-Goals
 **Goals:**
 - Automate `go test` and `go build` on every PR and push to main.
-- prevent merging broken code.
+- Prevent merging broken code.
 - Detect vulnerable dependencies in PRs.
 
-**Non-Goals:**
+## Non-Goals
 - Deployment automation (CD) - out of scope for now.
 - Linting (golangci-lint) - can be added later.
 
@@ -21,13 +21,13 @@ We will use GitHub Actions as the CI provider.
 We will create two separate workflows:
 1.  `ci.yaml`: Runs checking application code (Build & Test).
     - Triggers: `push` to main, `pull_request`.
-    - Job: `test` (Setup Go 1.22, Checkout, Test, Build).
+    - Job: `test` (Setup Go 1.25.7, Checkout, Test, Build).
 2.  `dependency-review.yaml`: Runs security scans.
     - Triggers: `pull_request`.
     - Action: `actions/dependency-review-action`.
 
 ### Decision 3: Go Version
-- Use `1.22` in `actions/setup-go` to match `go.mod`.
+- Use `1.25.7` in `actions/setup-go` to match `go.mod`.
 
 ## Risks / Trade-offs
 - **Risk**: Flaky tests blocking merges.

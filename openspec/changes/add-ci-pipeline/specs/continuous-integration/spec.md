@@ -1,3 +1,5 @@
+# Continuous Integration
+
 ## ADDED Requirements
 
 ### Requirement: Unit Testing on PR
@@ -21,3 +23,9 @@ The system SHALL verify the code builds successfully.
 - **WHEN** a PR is opened or updated
 - **AND** `go build ./...` succeeds
 - **THEN** the CI check MUST be marked as "success"
+
+#### Scenario: build failure
+- **WHEN** a PR is opened or updated
+- **AND** `go build ./...` fails
+- **THEN** the CI check MUST be marked as "failure"
+- **AND** the PR merge MUST be blocked
