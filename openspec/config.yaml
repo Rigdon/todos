@@ -2,10 +2,12 @@ context: |
   Project: Todos (Task Management)
   Stack: Go (Backend), TypeScript (Frontend), SQLite3 (Database)
   Conventions:
+    - MUST NOT ever commit to main branch
     - Short, meaningful commit messages
     - Full test coverage
-    - PRs less than 400 lines
+    - PRs MUST be less than 400 lines
     - Use common libraries for logging
+    - Use git worktrees for feature branches
 
 schema: spec-driven
 
