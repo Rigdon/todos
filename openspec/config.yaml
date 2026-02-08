@@ -8,6 +8,9 @@ context: |
     - PRs MUST be less than 400 lines
     - Use common libraries for logging
     - Use git worktrees for feature branches
+    - When a task is completed, it MUST be committed on the worktree
+    - When a task is completed, a PR MUST be created
+
 
 schema: spec-driven
 
