@@ -1,0 +1,39 @@
+# Binaries
+todos
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# Node / JS
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# SQLite
+*.db
+*.db-journal
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Agent
+.agent/
+.gemini/
