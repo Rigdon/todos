@@ -15,5 +15,5 @@ To ensure code quality and security, we need automated checks for every pull req
 None.
 
 # Impact
-- All future PRs will be blocked if checks fail.
+- Enables blocking PR merges when checks fail, once these workflows are configured as required status checks on protected branches.
 - Requires `GITHUB_TOKEN` permissions for dependency review.
