@@ -8,7 +8,6 @@ context: |
     - Full test coverage
     - PRs MUST be less than 400 lines
     - Use common libraries for logging
-    - Use git worktrees for feature branches
     - When a task is completed, it MUST be committed on the worktree
     - When a task is completed, a PR MUST be created and merged before prompting me to archive the task
 
