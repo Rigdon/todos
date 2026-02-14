@@ -28,8 +28,11 @@ func main() {
 	mux := http.NewServeMux()
 	handler.RegisterRoutes(mux)
 
-	log.Println("Server starting on :8080")
-	if err := http.ListenAndServe(":8080", mux); err != nil {
+	// Serve static files
+	mux.Handle("/", http.FileServer(http.Dir("./public")))
+
+	log.Println("Server starting on :8081")
+	if err := http.ListenAndServe(":8081", mux); err != nil {
 		log.Fatal(err)
 	}
 }
