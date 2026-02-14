@@ -1,0 +1,77 @@
+name: OpenSpec Auto-Archive
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  archive-change:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 2 # Need at least 2 commits to diff against parent
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install OpenSpec CLI
+        run: npm install -g @fission-ai/openspec@latest
+
+      - name: Identify Change
+        id: identify
+        run: |
+          # Identify change directory based on modified files in the merge commit
+          # HEAD is the merge commit. HEAD^1 is the previous state of main.
+          
+          echo "Detecting modified files..."
+          MODIFIED_FILES=$(git diff --name-only HEAD^1 HEAD)
+          
+          echo "Modified files:"
+          echo "$MODIFIED_FILES"
+
+          # Extract change names from openspec/changes/<name>/...
+          CHANGES=$(echo "$MODIFIED_FILES" | grep "^openspec/changes/" | cut -d/ -f3 | sort | uniq)
+          
+          CHANGE_NAME=""
+          for change in $CHANGES; do
+              # Ignore archive/ directory and empty strings
+              if [ "$change" != "archive" ] && [ ! -z "$change" ]; then
+                  CHANGE_NAME="$change"
+                  break # Handle the first valid change found
+              fi
+          done
+
+          if [ -z "$CHANGE_NAME" ]; then
+              echo "No active change found in the merged PR (excluding archive)."
+              echo "Skipping archive step."
+              echo "found=false" >> $GITHUB_OUTPUT
+              exit 0
+          fi
+          
+          echo "Found active change: $CHANGE_NAME"
+          echo "change_name=$CHANGE_NAME" >> $GITHUB_OUTPUT
+          echo "found=true" >> $GITHUB_OUTPUT
+
+      - name: Archive Change
+        if: steps.identify.outputs.found == 'true'
+        run: |
+          CHANGE_NAME="${{ steps.identify.outputs.change_name }}"
+          echo "Archiving change: $CHANGE_NAME"
+          openspec archive "$CHANGE_NAME" --yes
+
+      - name: Commit and Push Changes
+        if: steps.identify.outputs.found == 'true'
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # v5
+        with:
+          commit_message: "docs(openspec): auto-archive ${{ steps.identify.outputs.change_name }} [skip ci]"
+          branch: main
+          file_pattern: 'openspec/'
