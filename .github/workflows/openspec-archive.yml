@@ -13,14 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 2 # Need at least 2 commits to diff against parent
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install OpenSpec CLI
         run: npm install -g @fission-ai/openspec@latest
@@ -69,7 +70,7 @@ jobs:
 
       - name: Commit and Push Changes
         if: steps.identify.outputs.found == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # v5
         with:
           commit_message: "docs(openspec): auto-archive ${{ steps.identify.outputs.change_name }} [skip ci]"
           branch: main
